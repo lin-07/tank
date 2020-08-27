@@ -23,8 +23,9 @@ public class Tank {
     private Random random = new Random();
     private Group group;
     private Rectangle rectangle = new Rectangle();
+    private TankFireStrategy<Tank> tankTankFireStrategy;
 
-    public Tank(int x, int y, Direction direction, Group group, TankFrame tf) {
+    public Tank(int x, int y, Direction direction, Group group, TankFrame tf,TankFireStrategy<Tank> tankTankFireStrategy) {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -37,6 +38,7 @@ public class Tank {
         rectangle.y = y;
         rectangle.width = width;
         rectangle.height = height;
+        this.tankTankFireStrategy = tankTankFireStrategy;
     }
 
     /**
@@ -114,16 +116,7 @@ public class Tank {
      * 坦克发射子弹
      */
     public void fire() {
-        int bx = x + Tank.width/2 - Bullet.WIDTH/2;
-        int by = y + Tank.width/2 - Bullet.HEIGHT/2;
-        tf.bullets.add(new Bullet(bx,by,this.direction,this.group,tf));
-        if(this.group == Group.good){
-            new Thread(new Runnable() {
-                public void run() {
-                    new Audio("audio/tank_fire.wav").play();
-                }
-            }).start();
-        }
+        tankTankFireStrategy.fire(this);
     }
 
     public void die() {

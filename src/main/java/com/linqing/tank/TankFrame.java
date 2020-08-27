@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
-   Tank myTank = new Tank(200,400, Direction.DOWM,Group.good,this);
+   Tank myTank = new Tank(200,400, Direction.DOWM,Group.good,this,new TankFireMoreDirectionStrategy());
    List<Bullet> bullets = new ArrayList<Bullet>();
    List<Tank> tanks = new ArrayList<Tank>();
    List<Blast> blasts = new ArrayList<Blast>();
