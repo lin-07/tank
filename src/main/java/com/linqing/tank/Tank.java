@@ -22,6 +22,7 @@ public class Tank {
     private TankFrame tf;
     private Random random = new Random();
     private Group group;
+    private Rectangle rectangle = new Rectangle();
 
     public Tank(int x, int y, Direction direction, Group group, TankFrame tf) {
         this.x = x;
@@ -32,6 +33,10 @@ public class Tank {
         if(this.group == Group.bad){
             this.move = true;
         }
+        rectangle.x = x;
+        rectangle.y = y;
+        rectangle.width = width;
+        rectangle.height = height;
     }
 
     /**
@@ -62,6 +67,9 @@ public class Tank {
             }
 
             borderDetection();
+            // update rectangle
+            rectangle.x = x;
+            rectangle.y = y;
         }
 
         switch (direction) {

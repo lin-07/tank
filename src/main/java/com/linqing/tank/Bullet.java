@@ -19,12 +19,17 @@ public class Bullet {
     public static int HEIGHT = ResourceManager.bulletD.getHeight();
     private Group group;
     TankFrame tankFrame = null;
+    private Rectangle rectangle = new Rectangle();
     public Bullet(int x, int y, Direction direction, Group group,TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
         this.tankFrame = tankFrame;
+        rectangle.x = x;
+        rectangle.y = y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
 
@@ -49,6 +54,11 @@ public class Bullet {
             default:
                 break;
         }
+
+        // update rectangle
+        rectangle.x = x;
+        rectangle.y = y;
+
         // 每次画的时候判断子弹是否存活
         if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT){
             live = false;
@@ -73,9 +83,7 @@ public class Bullet {
         if(this.group == tank.getGroup()){
             return;
         }
-        Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-        Rectangle rectangle2 = new Rectangle(tank.getX(),tank.getY(),Tank.width,Tank.height);
-        if(rectangle1.intersects(rectangle2)){
+        if(rectangle.intersects(tank.getRectangle())){
             this.die();
             tank.die();
             int bx = tank.getX() + Tank.width/2 - Blast.WIDTH/2;
