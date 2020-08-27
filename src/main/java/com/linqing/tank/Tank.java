@@ -16,8 +16,8 @@ public class Tank {
     private Direction direction;
     private int speed = 5;
     private boolean move = false;
-    public static int width = ResourceManager.goodTankU.getWidth();
-    public static int height = ResourceManager.goodTankU.getHeight();
+    public static int width = ResourceManager.getInstance().getBufferedImage("goodTankU").getWidth();
+    public static int height = ResourceManager.getInstance().getBufferedImage("goodTankU").getHeight();
     private boolean live = true;
     private TankFrame tf;
     private Random random = new Random();
@@ -74,16 +74,16 @@ public class Tank {
 
         switch (direction) {
             case UP:
-                g.drawImage(this.group == Group.good ? ResourceManager.goodTankU : ResourceManager.badTankU,x,y,null);
+                g.drawImage(this.group == Group.good ? ResourceManager.getInstance().getBufferedImage("goodTankU") : ResourceManager.getInstance().getBufferedImage("badTankU"),x,y,null);
                 break;
             case LEFT:
-                g.drawImage(this.group == Group.good ? ResourceManager.goodTankL : ResourceManager.badTankL,x,y,null);
+                g.drawImage(this.group == Group.good ? ResourceManager.getInstance().getBufferedImage("goodTankL") : ResourceManager.getInstance().getBufferedImage("badTankL"),x,y,null);
                 break;
             case RIGHT:
-                g.drawImage(this.group == Group.good ? ResourceManager.goodTankR : ResourceManager.badTankR,x,y,null);
+                g.drawImage(this.group == Group.good ? ResourceManager.getInstance().getBufferedImage("goodTankR") : ResourceManager.getInstance().getBufferedImage("badTankR"),x,y,null);
                 break;
             case DOWM:
-                g.drawImage(this.group == Group.good ? ResourceManager.goodTankD : ResourceManager.badTankD,x,y,null);
+                g.drawImage(this.group == Group.good ? ResourceManager.getInstance().getBufferedImage("goodTankD") : ResourceManager.getInstance().getBufferedImage("badTankD"),x,y,null);
                 break;
         }
     }

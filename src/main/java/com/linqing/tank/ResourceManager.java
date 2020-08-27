@@ -1,6 +1,8 @@
 package com.linqing.tank;
 
 
+import lombok.Data;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -11,10 +13,72 @@ import java.io.IOException;
  */
 public class ResourceManager {
 
-    public static BufferedImage goodTankL,goodTankR,goodTankU,goodTankD;
-    public static BufferedImage badTankL,badTankR,badTankU,badTankD;
-    public static BufferedImage bulletL,bulletR,bulletU,bulletD;
-    public static BufferedImage[] blasts = new BufferedImage[16];
+    // 完美的单例 双重检测单例
+    private ResourceManager(){}
+
+    private static volatile ResourceManager resourceManager;
+
+    public static ResourceManager getInstance(){
+        if(resourceManager == null){
+            synchronized (ResourceManager.class){
+                if(resourceManager == null){
+                    resourceManager = new ResourceManager();
+                }
+            }
+        }
+        return resourceManager;
+    }
+
+    private static BufferedImage goodTankL,goodTankR,goodTankU,goodTankD;
+    private static BufferedImage badTankL,badTankR,badTankU,badTankD;
+    private static BufferedImage bulletL,bulletR,bulletU,bulletD;
+    private static BufferedImage[] blasts = new BufferedImage[16];
+
+    public BufferedImage getBufferedImage(String key){
+        BufferedImage value = null;
+       if(key == "goodTankL"){
+           value = goodTankL;
+       }
+        if(key == "goodTankR"){
+            value = goodTankR;
+        }
+        if(key == "goodTankD"){
+            value = goodTankD;
+        }
+        if(key == "goodTankU"){
+            value = goodTankU;
+        }
+        if(key == "badTankL"){
+            value = badTankL;
+        }
+        if(key == "badTankR"){
+            value = badTankR;
+        }
+        if(key == "badTankU"){
+            value = badTankU;
+        }
+        if(key == "badTankD"){
+            value = badTankD;
+        }
+        if(key == "bulletL"){
+            value = bulletL;
+        }
+        if(key == "bulletR"){
+            value = bulletR;
+        }
+        if(key == "bulletU"){
+            value = bulletU;
+        }
+        if(key == "bulletD"){
+            value = bulletD;
+        }
+        return value;
+    }
+
+    public BufferedImage[] getBufferedImageArray(){
+        return blasts;
+    }
+
     static {
         try {
             goodTankU = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));

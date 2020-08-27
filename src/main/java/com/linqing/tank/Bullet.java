@@ -15,8 +15,8 @@ public class Bullet {
     private Direction direction;
     private int speed = 10;
     private boolean live = true;
-    public static int WIDTH = ResourceManager.bulletD.getWidth();
-    public static int HEIGHT = ResourceManager.bulletD.getHeight();
+    public static int WIDTH = ResourceManager.getInstance().getBufferedImage("bulletD").getWidth();
+    public static int HEIGHT = ResourceManager.getInstance().getBufferedImage("bulletD").getHeight();
     private Group group;
     TankFrame tankFrame = null;
     private Rectangle rectangle = new Rectangle();
@@ -65,16 +65,16 @@ public class Bullet {
         }
         switch (direction) {
             case UP:
-                g.drawImage(ResourceManager.bulletU,x,y,null);
+                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletU"),x,y,null);
                 break;
             case LEFT:
-                g.drawImage(ResourceManager.bulletL,x,y,null);
+                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletL"),x,y,null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceManager.bulletR,x,y,null);
+                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletR"),x,y,null);
                 break;
             case DOWM:
-                g.drawImage(ResourceManager.bulletD,x,y,null);
+                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletD"),x,y,null);
                 break;
         }
     }
