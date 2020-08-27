@@ -18,8 +18,8 @@ public class TankFrame extends Frame {
    List<Bullet> bullets = new ArrayList<Bullet>();
    List<Tank> tanks = new ArrayList<Tank>();
    List<Blast> blasts = new ArrayList<Blast>();
-   static int GAME_WIDTH = 800;
-   static int GAME_HEIGHT = 600;
+   static int GAME_WIDTH = 1366;
+   static int GAME_HEIGHT = 768;
 
 
     public TankFrame (){

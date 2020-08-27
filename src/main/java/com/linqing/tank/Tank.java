@@ -14,7 +14,7 @@ public class Tank {
     private int x;
     private int y;
     private Direction direction;
-    private int speed = 1;
+    private int speed = 5;
     private boolean move = false;
     public static int width = ResourceManager.goodTankU.getWidth();
     public static int height = ResourceManager.goodTankU.getHeight();
@@ -57,9 +57,11 @@ public class Tank {
             if(random.nextInt(100) > 95 && this.group == Group.bad){
                 this.fire();
             }
-            if(this.group == Group.bad && random.nextInt(100) > 95){
+            if(this.group == Group.bad && random.nextInt(100) > 92){
                 setBadDirection();
             }
+
+            borderDetection();
         }
 
         switch (direction) {
@@ -75,6 +77,24 @@ public class Tank {
             case DOWM:
                 g.drawImage(this.group == Group.good ? ResourceManager.goodTankD : ResourceManager.badTankD,x,y,null);
                 break;
+        }
+    }
+
+    /**
+     * 边界检测
+     */
+    private void borderDetection() {
+        if(this.x < 2){
+            this.x = 2;
+        }
+        if(this.y <32){
+            this.y = 32;
+        }
+        if(this.x > TankFrame.GAME_WIDTH  - Tank.width){
+            this.x = TankFrame.GAME_WIDTH - Tank.width;
+        }
+        if(this.y > TankFrame.GAME_HEIGHT - Tank.height){
+            this.y = TankFrame.GAME_HEIGHT - Tank.height;
         }
     }
 
