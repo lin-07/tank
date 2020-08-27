@@ -25,7 +25,7 @@ public class Tank {
     private Rectangle rectangle = new Rectangle();
     private FireStrategy<Tank> tankTankFireStrategy;
 
-    public Tank(int x, int y, Direction direction, Group group, TankFrame tf, FireStrategy<Tank> tankTankFireStrategy) {
+    public Tank(int x, int y, Direction direction, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -38,7 +38,17 @@ public class Tank {
         rectangle.y = y;
         rectangle.width = width;
         rectangle.height = height;
-        this.tankTankFireStrategy = tankTankFireStrategy;
+        String fireClassName = null;
+        if(this.group == Group.good){
+            fireClassName = (String) PropertyManager.getInstance().getKey("goodFS");
+        }else{
+            fireClassName = (String) PropertyManager.getInstance().getKey("badFS");
+        }
+        try {
+            this.tankTankFireStrategy = (FireStrategy<Tank>)Class.forName(fireClassName).newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

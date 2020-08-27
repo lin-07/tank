@@ -11,7 +11,7 @@ public class Main {
         int initTankCount = Integer.parseInt((String) PropertyManager.getInstance().getKey("initTankCount"));
 
         for (int i = 0; i < initTankCount ; i++) {
-            tankFrame.tanks.add(new Tank(i * 80,200,Direction.DOWM,Group.bad,tankFrame,new DefaultFireStrategy()));
+            tankFrame.tanks.add(new Tank(i * 80,200,Direction.DOWM,Group.bad,tankFrame));
         }
         // new Thread(new Runnable() {
         //     public void run() {
