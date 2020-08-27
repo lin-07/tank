@@ -1,6 +1,6 @@
 package com.linqing.tank;
 
-public interface TankFireStrategy<T> {
+public interface FireStrategy<T> {
 
     void fire(T t);
 }

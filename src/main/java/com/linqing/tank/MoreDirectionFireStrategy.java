@@ -3,12 +3,14 @@ package com.linqing.tank;
 /**
  * @author lin-PC
  */
-public class TankFireDefaultStrategy implements TankFireStrategy<Tank> {
+public class MoreDirectionFireStrategy implements FireStrategy<Tank> {
 
     public void fire(Tank tank) {
         int bx = tank.getX() + Tank.width/2 - Bullet.WIDTH/2;
         int by = tank.getY() + Tank.width/2 - Bullet.HEIGHT/2;
-        tank.getTf().bullets.add(new Bullet(bx,by,tank.getDirection(),tank.getGroup(),tank.getTf()));
+        for(Direction direction : Direction.values()){
+            new Bullet(bx,by,direction,tank.getGroup(),tank.getTf());
+        }
         if(tank.getGroup() == Group.good){
             new Thread(new Runnable() {
                 public void run() {

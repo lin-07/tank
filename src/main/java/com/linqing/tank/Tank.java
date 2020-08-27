@@ -23,9 +23,9 @@ public class Tank {
     private Random random = new Random();
     private Group group;
     private Rectangle rectangle = new Rectangle();
-    private TankFireStrategy<Tank> tankTankFireStrategy;
+    private FireStrategy<Tank> tankTankFireStrategy;
 
-    public Tank(int x, int y, Direction direction, Group group, TankFrame tf,TankFireStrategy<Tank> tankTankFireStrategy) {
+    public Tank(int x, int y, Direction direction, Group group, TankFrame tf, FireStrategy<Tank> tankTankFireStrategy) {
         this.x = x;
         this.y = y;
         this.direction = direction;

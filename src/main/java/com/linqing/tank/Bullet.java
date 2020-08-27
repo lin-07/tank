@@ -30,6 +30,7 @@ public class Bullet {
         rectangle.y = y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+        tankFrame.bullets.add(this);
     }
 
 
