@@ -10,7 +10,9 @@ public class Main {
     public static void main(String[] args) {
         TankFrame tankFrame = new TankFrame();
 
-        for (int i = 0; i < 5 ; i++) {
+        int initTankCount = Integer.parseInt((String) PropertyManager.getKey("initTankCount"));
+
+        for (int i = 0; i < initTankCount ; i++) {
             tankFrame.tanks.add(new Tank(i * 80,200,Direction.DOWM,Group.bad,tankFrame));
         }
         // new Thread(new Runnable() {
