@@ -1,5 +1,8 @@
 package com.linqing.tank;
 
+import com.linqing.tank.abstractFactory.BaseBlast;
+import com.linqing.tank.abstractFactory.BaseBullet;
+import com.linqing.tank.abstractFactory.BaseTank;
 import lombok.Data;
 
 import java.awt.*;
@@ -8,13 +11,12 @@ import java.awt.*;
  * @author lin-PC
  */
 @Data
-public class Bullet {
+public class Bullet extends BaseBullet {
 
     private int x;
     private int y;
     private Direction direction;
     private int speed = 10;
-    private boolean live = true;
     public static int WIDTH = ResourceManager.getInstance().getBufferedImage("bulletD").getWidth();
     public static int HEIGHT = ResourceManager.getInstance().getBufferedImage("bulletD").getHeight();
     private Group group;
@@ -38,6 +40,7 @@ public class Bullet {
      * 画出子弹
      * @param g
      */
+    @Override
     public void paint(Graphics g){
         switch (direction) {
             case UP:
@@ -62,7 +65,7 @@ public class Bullet {
 
         // 每次画的时候判断子弹是否存活
         if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT){
-            live = false;
+            this.setLive(false);
         }
         switch (direction) {
             case UP:
@@ -80,7 +83,8 @@ public class Bullet {
         }
     }
 
-    public void collision(Tank tank) {
+    @Override
+    public void collision(BaseTank tank) {
         if(this.group == tank.getGroup()){
             return;
         }
@@ -91,9 +95,5 @@ public class Bullet {
             int by = tank.getY() + Tank.height/2 - Blast.HEIGHT/2;
             this.tankFrame.blasts.add(new Blast(bx,by,tankFrame));
         }
-    }
-
-    private void die() {
-        this.live = false;
     }
 }

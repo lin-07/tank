@@ -1,11 +1,12 @@
 package com.linqing.tank;
 
+import com.linqing.tank.abstractFactory.BaseBlast;
 import lombok.Data;
 
 import java.awt.*;
 
 @Data
-public class Blast {
+public class Blast extends BaseBlast {
 
     private int x;
     private int y;
@@ -13,7 +14,6 @@ public class Blast {
     public static int HEIGHT = ResourceManager.getInstance().getBufferedImageArray()[0].getHeight();
     private int step = 0;
     private TankFrame tankFrame;
-    private boolean live = true;
 
     public Blast(int x,int y,TankFrame tankFrame){
         this.x = x;
@@ -26,10 +26,11 @@ public class Blast {
         }).start();
     }
 
+    @Override
     public void paint(Graphics g){
         g.drawImage(ResourceManager.getInstance().getBufferedImageArray()[step++],x,y,null);
         if(step >= ResourceManager.getInstance().getBufferedImageArray().length){
-            this.live = false;
+            this.setLive(false);
         }
     }
 }

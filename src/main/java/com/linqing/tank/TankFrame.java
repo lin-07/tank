@@ -1,5 +1,7 @@
 package com.linqing.tank;
 
+import com.linqing.tank.abstractFactory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -14,12 +16,13 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
-   Tank myTank = new Tank(200,400, Direction.DOWM,Group.good,this);
-   List<Bullet> bullets = new ArrayList<Bullet>();
-   List<Tank> tanks = new ArrayList<Tank>();
-   List<Blast> blasts = new ArrayList<Blast>();
-   static int GAME_WIDTH = 1366;
-   static int GAME_HEIGHT = 768;
+   public GameFactory gameFactory = DefaultFactory.getInstance();
+   BaseTank myTank = gameFactory.createTank(200,400, Direction.DOWM,Group.good,this);
+   public List<BaseBullet> bullets = new ArrayList<BaseBullet>();
+   List<BaseTank> tanks = new ArrayList<BaseTank>();
+   List<BaseBlast> blasts = new ArrayList<BaseBlast>();
+   public static int GAME_WIDTH = 1366;
+   public static int GAME_HEIGHT = 768;
 
 
     public TankFrame (){
@@ -63,27 +66,27 @@ public class TankFrame extends Frame {
         // 画出坦克
         myTank.paint(graphics);
         // 画出子弹
-        Iterator<Bullet> iterator1 = bullets.iterator();
+        Iterator<BaseBullet> iterator1 = bullets.iterator();
         while(iterator1.hasNext()){
-            Bullet bullet = iterator1.next();
+            BaseBullet bullet = iterator1.next();
             if(!bullet.isLive()){
                 iterator1.remove();
             }
             bullet.paint(graphics);
         }
         // 画出敌方坦克
-        Iterator<Tank> iterator = tanks.iterator();
+        Iterator<BaseTank> iterator = tanks.iterator();
         while(iterator.hasNext()){
-            Tank tank = iterator.next();
-            if(!tank.isLive()){
+            BaseTank tank = iterator.next();
+            if(!tank.getLive()){
                 iterator.remove();
             }
             tank.paint(graphics);
         }
         // 画出爆炸
-        Iterator<Blast> iterator2 = blasts.iterator();
+        Iterator<BaseBlast> iterator2 = blasts.iterator();
         while(iterator2.hasNext()){
-            Blast blast = iterator2.next();
+            BaseBlast blast = iterator2.next();
             if(!blast.isLive()){
                 iterator2.remove();
             }else{
