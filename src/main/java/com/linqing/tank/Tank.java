@@ -75,7 +75,7 @@ public class Tank {
                 this.fire();
             }
             if(this.group == Group.bad && random.nextInt(100) > 92){
-                setBadDirection();
+                randomBadTankDirection();
             }
 
             borderDetection();
@@ -118,7 +118,7 @@ public class Tank {
         }
     }
 
-    private void setBadDirection() {
+    private void randomBadTankDirection() {
         this.direction = Direction.values()[random.nextInt(4)];
     }
 

@@ -18,7 +18,7 @@ public class PropertyManager {
     }
 
 
-    static Properties properties = new Properties();
+    private static Properties properties = new Properties();
 
     static {
         try {

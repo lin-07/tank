@@ -5,5 +5,5 @@ package com.linqing.tank;
  */
 
 public enum Direction {
-    LEFT,RIGHT,UP,DOWM
+    LEFT,RIGHT,UP,DOWM;
 }
