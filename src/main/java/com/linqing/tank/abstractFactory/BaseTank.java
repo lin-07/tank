@@ -1,6 +1,7 @@
 package com.linqing.tank.abstractFactory;
 
 import com.linqing.tank.*;
+import com.linqing.tank.facade.GameModel;
 import com.linqing.tank.strategy.FireStrategy;
 import lombok.Data;
 
@@ -18,19 +19,19 @@ public abstract class BaseTank {
     public static int width;
     public static int height;
     private Boolean live = true;
-    private TankFrame tf;
+    private GameModel gameModel;
     private Random random = new Random();
     private Group group;
     private Rectangle rectangle = new Rectangle();
     private FireStrategy<Tank> tankTankFireStrategy;
 
 
-    public BaseTank(int x, int y, Direction direction, Group group, TankFrame tf,int width,int height) {
+    public BaseTank(int x, int y, Direction direction, Group group, GameModel gameModel,int width,int height) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
-        this.tf = tf;
+        this.gameModel = gameModel;
         if(this.group == Group.bad){
             this.move = true;
         }

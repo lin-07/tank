@@ -12,7 +12,7 @@ public class MoreDirectionFireStrategy implements FireStrategy<BaseTank> {
         int bx = tank.getX() + Tank.width/2 - Bullet.WIDTH/2;
         int by = tank.getY() + Tank.width/2 - Bullet.HEIGHT/2;
         for(Direction direction : Direction.values()){
-            tank.getTf().gameFactory.createBullet(bx,by,direction,tank.getGroup(),tank.getTf());
+            tank.getGameModel().gameFactory.createBullet(bx,by,direction,tank.getGroup(),tank.getGameModel());
         }
         if(tank.getGroup() == Group.good){
             new Thread(new Runnable() {

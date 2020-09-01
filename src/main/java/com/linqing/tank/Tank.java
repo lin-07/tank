@@ -1,6 +1,7 @@
 package com.linqing.tank;
 
 import com.linqing.tank.abstractFactory.BaseTank;
+import com.linqing.tank.facade.GameModel;
 
 import java.awt.*;
 
@@ -12,8 +13,8 @@ public class Tank extends BaseTank {
     public static int width = ResourceManager.getInstance().getBufferedImage("goodTankU").getWidth();
     public static int height = ResourceManager.getInstance().getBufferedImage("goodTankU").getHeight();
 
-    public Tank(int x, int y, Direction direction, Group group, TankFrame tf) {
-        super(x,y,direction,group,tf,width,height);
+    public Tank(int x, int y, Direction direction, Group group, GameModel gameModel) {
+        super(x,y,direction,group,gameModel,width,height);
     }
 
     /**

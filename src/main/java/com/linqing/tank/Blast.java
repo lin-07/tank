@@ -1,6 +1,7 @@
 package com.linqing.tank;
 
 import com.linqing.tank.abstractFactory.BaseBlast;
+import com.linqing.tank.facade.GameModel;
 import lombok.Data;
 
 import java.awt.*;
@@ -13,12 +14,12 @@ public class Blast extends BaseBlast {
     public static int WIDTH = ResourceManager.getInstance().getBufferedImageArray()[0].getWidth();
     public static int HEIGHT = ResourceManager.getInstance().getBufferedImageArray()[0].getHeight();
     private int step = 0;
-    private TankFrame tankFrame;
+    private GameModel gameModel;
 
-    public Blast(int x,int y,TankFrame tankFrame){
+    public Blast(int x,int y,GameModel gameModel){
         this.x = x;
         this.y = y;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
         new Thread(new Runnable() {
             public void run() {
                 new Audio("audio/explode.wav").play();

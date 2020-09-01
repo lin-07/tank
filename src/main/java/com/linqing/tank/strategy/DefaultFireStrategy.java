@@ -19,7 +19,7 @@ public class DefaultFireStrategy implements FireStrategy<BaseTank> {
     public void fire(BaseTank tank) {
         int bx = tank.getX() + Tank.width/2 - Bullet.WIDTH/2;
         int by = tank.getY() + Tank.width/2 - Bullet.HEIGHT/2;
-        tank.getTf().gameFactory.createBullet(bx,by,tank.getDirection(),tank.getGroup(),tank.getTf());
+        tank.getGameModel().gameFactory.createBullet(bx,by,tank.getDirection(),tank.getGroup(),tank.getGameModel());
         if(tank.getGroup() == Group.good){
             new Thread(new Runnable() {
                 public void run() {

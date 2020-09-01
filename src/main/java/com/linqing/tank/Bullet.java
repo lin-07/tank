@@ -3,6 +3,7 @@ package com.linqing.tank;
 import com.linqing.tank.abstractFactory.BaseBlast;
 import com.linqing.tank.abstractFactory.BaseBullet;
 import com.linqing.tank.abstractFactory.BaseTank;
+import com.linqing.tank.facade.GameModel;
 import lombok.Data;
 
 import java.awt.*;
@@ -20,19 +21,19 @@ public class Bullet extends BaseBullet {
     public static int WIDTH = ResourceManager.getInstance().getBufferedImage("bulletD").getWidth();
     public static int HEIGHT = ResourceManager.getInstance().getBufferedImage("bulletD").getHeight();
     private Group group;
-    TankFrame tankFrame = null;
+    GameModel gameModel = null;
     private Rectangle rectangle = new Rectangle();
-    public Bullet(int x, int y, Direction direction, Group group,TankFrame tankFrame) {
+    public Bullet(int x, int y, Direction direction, Group group,GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
         rectangle.x = x;
         rectangle.y = y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
-        tankFrame.bullets.add(this);
+        gameModel.bullets.add(this);
     }
 
 
@@ -93,7 +94,7 @@ public class Bullet extends BaseBullet {
             tank.die();
             int bx = tank.getX() + Tank.width/2 - Blast.WIDTH/2;
             int by = tank.getY() + Tank.height/2 - Blast.HEIGHT/2;
-            this.tankFrame.blasts.add(new Blast(bx,by,tankFrame));
+            this.gameModel.blasts.add(new Blast(bx,by,gameModel));
         }
     }
 }
