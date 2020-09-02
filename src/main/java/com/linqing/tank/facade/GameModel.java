@@ -14,11 +14,7 @@ import java.util.List;
 public class GameModel {
 
     private GameModel(){
-        int initTankCount = Integer.parseInt((String) PropertyManager.getInstance().getKey("initTankCount"));
-
-        for (int i = 0; i < initTankCount ; i++) {
-            gameObjects.add(new Tank(i * 80,200,Direction.DOWM,Group.bad));
-        }
+        init();
     }
     public List<GameObject> gameObjects = new ArrayList<GameObject>();
     private static GameModel gameModel = new GameModel();
@@ -27,10 +23,25 @@ public class GameModel {
     public static GameModel getInstance(){
         return gameModel;
     }
+    public GameFactory gameFactory = null;
+    public BaseTank myTank = null;
 
+    private void init(){
+        // 初始化游戏物品工厂
+        String objectFactoryStr = (String) PropertyManager.getInstance().getKey("objectFactory");
+        try {
+            gameFactory = (GameFactory) Class.forName(objectFactoryStr).newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    public GameFactory gameFactory = DefaultFactory.getInstance();
-    public BaseTank myTank = gameFactory.createTank(200,400, Direction.DOWM, Group.good);
+        // 初始化敌方坦克
+        int initTankCount = Integer.parseInt((String) PropertyManager.getInstance().getKey("initTankCount"));
+        for (int i = 0; i < initTankCount ; i++) {
+            gameObjects.add(gameFactory.createTank(i * 80,200,Group.bad));
+        }
+        myTank = gameFactory.createTank(200,400, Group.good);
+    }
     /**
      * 一个集合遍历过程中不允许直接新增或者移除集合中的元素  需要使用迭代器操作
      */

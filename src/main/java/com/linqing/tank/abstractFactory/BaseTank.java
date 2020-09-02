@@ -26,11 +26,11 @@ public abstract class BaseTank extends GameObject {
     private FireStrategy<Tank> tankTankFireStrategy;
 
 
-    public BaseTank(int x, int y, Direction direction, Group group,int width,int height) {
+    public BaseTank(int x, int y, Group group,int width,int height) {
         this.x = x;
         this.y = y;
-        this.direction = direction;
         this.group = group;
+        this.direction = group == Group.good ? Direction.UP : Direction.values()[random.nextInt(4)];
         if(this.group == Group.bad){
             this.move = true;
         }

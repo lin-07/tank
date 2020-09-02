@@ -8,18 +8,9 @@ import com.linqing.tank.facade.GameModel;
  */
 public class DefaultFactory extends GameFactory {
 
-    private DefaultFactory(){}
-
-    private static DefaultFactory defaultFactory = new DefaultFactory();
-
-    public static DefaultFactory getInstance(){
-        return defaultFactory;
-    }
-
-
     @Override
-    public BaseTank createTank(int x, int y, Direction direction, Group group) {
-        return new Tank(x,y,direction,group);
+    public BaseTank createTank(int x, int y, Group group) {
+        return new Tank(x,y,group);
     }
 
     @Override
