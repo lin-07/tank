@@ -57,7 +57,7 @@ public class GameModel {
             for (int j = i+1; j < gameObjects.size(); j++) {
                 GameObject o1 = gameObjects.get(i);
                 GameObject o2 = gameObjects.get(j);
-                colliderChain.collideWith(o1,o2);
+                colliderChain.collideWith(o1, o2);
             }
         }
         //

@@ -39,8 +39,11 @@ public class ColliderChain implements Collider<GameObject> {
 
     public boolean collideWith(GameObject o1, GameObject o2) {
         for(Collider collider : colliders){
-            collider.collideWith(o1,o2);
+            boolean b = collider.collideWith(o1, o2);
+            if(!b){
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 }

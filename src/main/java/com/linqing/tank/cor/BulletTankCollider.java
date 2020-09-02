@@ -13,19 +13,17 @@ public class BulletTankCollider<GameObject> implements Collider<GameObject> {
 
     public boolean collideWith(GameObject o1, GameObject o2) {
         if(o1 instanceof Bullet && o2 instanceof Tank){
-            collision((Bullet) o1,(Tank)o2);
-            return false;
+            return collision((Bullet) o1,(Tank)o2);
         }else if(o1 instanceof Tank && o2 instanceof Bullet){
-            collision((Bullet) o2,(Tank)o1);
-            return false;
+            return collision((Bullet) o2,(Tank)o1);
         }else{
             return true;
         }
     }
 
-    private void collision(Bullet bullet, BaseTank tank) {
+    private boolean collision(Bullet bullet, BaseTank tank) {
         if(bullet.getGroup() == tank.getGroup()){
-            return;
+            return true;
         }
         if(bullet.getRectangle().intersects(tank.getRectangle())){
             bullet.die();
@@ -33,7 +31,9 @@ public class BulletTankCollider<GameObject> implements Collider<GameObject> {
             int bx = tank.getX() + Tank.width/2 - Blast.WIDTH/2;
             int by = tank.getY() + Tank.height/2 - Blast.HEIGHT/2;
             bullet.getGameModel().iterator.add(new Blast(bx,by,bullet.getGameModel()));
+            return false;
         }
+        return true;
     }
 
 
