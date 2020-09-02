@@ -1,8 +1,6 @@
 package com.linqing.tank;
 
-import com.linqing.tank.abstractFactory.BaseBlast;
 import com.linqing.tank.abstractFactory.BaseBullet;
-import com.linqing.tank.abstractFactory.BaseTank;
 import com.linqing.tank.facade.GameModel;
 import lombok.Data;
 
@@ -17,11 +15,16 @@ public class Bullet extends BaseBullet {
     private Direction direction;
     private int speed = 10;
     private Group group;
+    private Rectangle rectangle = new Rectangle();
 
     public Bullet(int x, int y, Direction direction, Group group) {
         super(x,y,
                 ResourceManager.getInstance().getBufferedImage("bulletD").getWidth(),
                 ResourceManager.getInstance().getBufferedImage("bulletD").getHeight());
+        rectangle.x = x;
+        rectangle.y = y;
+        rectangle.width = ResourceManager.getInstance().getBufferedImage("bulletD").getWidth();
+        rectangle.height = ResourceManager.getInstance().getBufferedImage("bulletD").getHeight();
         this.direction = direction;
         this.group = group;
         GameModel.getInstance().iterator.add(this);
@@ -72,5 +75,13 @@ public class Bullet extends BaseBullet {
                 g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletD"),this.getX(),this.getY(),null);
                 break;
         }
+    }
+
+    /**
+     * 更新rectangle
+     */
+    private void updateRectangle(){
+        this.rectangle.x = super.getX();
+        this.rectangle.y = super.getY();
     }
 }

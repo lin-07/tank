@@ -21,6 +21,7 @@ public class Tank extends BaseTank {
     private Boolean move = false;
     private Group group;
     private Random random = new Random();
+    private Rectangle rectangle = new Rectangle();
     private FireStrategy<Tank> tankTankFireStrategy;
 
 
@@ -29,6 +30,11 @@ public class Tank extends BaseTank {
                 ResourceManager.getInstance().getBufferedImage("goodTankU").getWidth(),
                 ResourceManager.getInstance().getBufferedImage("goodTankU").getHeight());
         this.group = group;
+
+        rectangle.x = x;
+        rectangle.y = y;
+        rectangle.width = ResourceManager.getInstance().getBufferedImage("goodTankU").getWidth();
+        rectangle.height = ResourceManager.getInstance().getBufferedImage("goodTankU").getHeight();
 
         if(group == Group.bad){
             // 随机设置敌方坦克位置
@@ -116,5 +122,31 @@ public class Tank extends BaseTank {
     @Override
     public void fire() {
         this.getTankTankFireStrategy().fire(this);
+    }
+
+    /**
+     * 边界检测
+     */
+    private void borderDetection() {
+        if(this.getX() < 2){
+            this.setX(2);
+        }
+        if(this.getY() <32){
+            this.setY(32);
+        }
+        if(this.getX() > TankFrame.GAME_WIDTH  - this.getWidth()){
+            this.setX(TankFrame.GAME_WIDTH - this.getWidth());
+        }
+        if(this.getY() > TankFrame.GAME_HEIGHT - this.getHeight()){
+            this.setY(TankFrame.GAME_HEIGHT - this.getHeight());
+        }
+    }
+
+    /**
+     * 更新rectangle
+     */
+    private void updateRectangle(){
+        this.rectangle.x = super.getX();
+        this.rectangle.y = super.getY();
     }
 }
