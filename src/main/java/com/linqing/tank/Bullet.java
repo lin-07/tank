@@ -33,7 +33,8 @@ public class Bullet extends BaseBullet {
         rectangle.y = y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
-        gameModel.bullets.add(this);
+        System.out.println(gameModel.iterator);
+        gameModel.iterator.add(this);
     }
 
 
@@ -94,7 +95,7 @@ public class Bullet extends BaseBullet {
             tank.die();
             int bx = tank.getX() + Tank.width/2 - Blast.WIDTH/2;
             int by = tank.getY() + Tank.height/2 - Blast.HEIGHT/2;
-            this.gameModel.blasts.add(new Blast(bx,by,gameModel));
+            this.gameModel.iterator.add(new Blast(bx,by,gameModel));
         }
     }
 }

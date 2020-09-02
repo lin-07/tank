@@ -1,14 +1,10 @@
 package com.linqing.tank.facade;
 
-import com.linqing.tank.Direction;
-import com.linqing.tank.Group;
-import com.linqing.tank.PropertyManager;
-import com.linqing.tank.Tank;
+import com.linqing.tank.*;
 import com.linqing.tank.abstractFactory.*;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
 
 public class GameModel {
@@ -17,10 +13,10 @@ public class GameModel {
         int initTankCount = Integer.parseInt((String) PropertyManager.getInstance().getKey("initTankCount"));
 
         for (int i = 0; i < initTankCount ; i++) {
-            tanks.add(new Tank(i * 80,200,Direction.DOWM,Group.bad,this));
+            gameObjects.add(new Tank(i * 80,200,Direction.DOWM,Group.bad,this));
         }
     }
-
+    public List<GameObject> gameObjects = Collections.synchronizedList(new ArrayList<GameObject>());
     private static GameModel gameModel = new GameModel();
 
     public static GameModel getInstance(){
@@ -30,53 +26,45 @@ public class GameModel {
 
     public GameFactory gameFactory = DefaultFactory.getInstance();
     public BaseTank myTank = gameFactory.createTank(200,400, Direction.DOWM, Group.good,this);
-    public List<BaseBullet> bullets = new ArrayList<BaseBullet>();
-    public List<BaseTank> tanks = new ArrayList<BaseTank>();
-    public List<BaseBlast> blasts = new ArrayList<BaseBlast>();
+    /**
+     * 一个集合遍历过程中不允许直接新增或者移除集合中的元素  需要使用迭代器操作
+     */
+    public ListIterator<GameObject> iterator = null;
+
 
     public void paint(Graphics graphics) {
         // 画出坦克
         myTank.paint(graphics);
-        // 画出子弹
-        Iterator<BaseBullet> iterator1 = bullets.iterator();
-        while(iterator1.hasNext()){
-            BaseBullet bullet = iterator1.next();
-            if(!bullet.isLive()){
-                iterator1.remove();
-            }
-            bullet.paint(graphics);
-        }
+
         // 画出敌方坦克
-        Iterator<BaseTank> iterator = tanks.iterator();
+        iterator = gameObjects.listIterator();
         while(iterator.hasNext()){
-            BaseTank tank = iterator.next();
-            if(!tank.getLive()){
+            GameObject gameObjects = iterator.next();
+            if(!gameObjects.isLive()){
                 iterator.remove();
             }
-            tank.paint(graphics);
-        }
-        // 画出爆炸
-        Iterator<BaseBlast> iterator2 = blasts.iterator();
-        while(iterator2.hasNext()){
-            BaseBlast blast = iterator2.next();
-            if(!blast.isLive()){
-                iterator2.remove();
-            }else{
-                blast.paint(graphics);
-            }
-        }
-        // 碰撞检测
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < tanks.size(); j++) {
-                bullets.get(i).collision(tanks.get(j));
-            }
+            gameObjects.paint(graphics);
         }
 
-        Color color = graphics.getColor();
-        graphics.setColor(Color.white);
-        graphics.drawString("子弹的数量：" + bullets.size(),10,60);
-        graphics.drawString("敌人的数量：" + tanks.size(),10,80);
-        graphics.drawString("爆炸的数量：" + blasts.size(),10,100);
-        graphics.setColor(color);
+        // 碰撞检测
+        // for (int i = 0; i < gameObjects.size(); i++) {
+        //     for (int j = 0; j < gameObjects.size(); j++) {
+        //         GameObject o1 = gameObjects.get(i);
+        //         GameObject o2 = gameObjects.get(j);
+        //         if(o1 instanceof Tank && o2 instanceof Bullet){
+        //             ((Bullet) o2).collision((Tank) o1);
+        //         }
+        //         if(o1 instanceof Bullet && o2 instanceof Tank){
+        //             ((Bullet) o1).collision((Tank) o2);
+        //         }
+        //     }
+        // }
+        //
+        // Color color = graphics.getColor();
+        // graphics.setColor(Color.white);
+        // graphics.drawString("子弹的数量：" + bullets.size(),10,60);
+        // graphics.drawString("敌人的数量：" + tanks.size(),10,80);
+        // graphics.drawString("爆炸的数量：" + blasts.size(),10,100);
+        // graphics.setColor(color);
     }
 }

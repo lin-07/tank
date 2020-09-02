@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.Random;
 
 @Data
-public abstract class BaseTank {
+public abstract class BaseTank extends GameObject {
 
     private int x;
     private int y;
@@ -18,7 +18,6 @@ public abstract class BaseTank {
     private Boolean move = false;
     public static int width;
     public static int height;
-    private Boolean live = true;
     private GameModel gameModel;
     private Random random = new Random();
     private Group group;
@@ -53,22 +52,9 @@ public abstract class BaseTank {
     }
 
     /**
-     * 创建
-     * @param g
-     */
-    public abstract void paint(Graphics g);
-
-    /**
      * 开火
      */
     public abstract void fire();
-
-    /**
-     * 死亡
-     */
-    public void die(){
-        this.live = false;
-    }
 
     /**
      * 边界检测
