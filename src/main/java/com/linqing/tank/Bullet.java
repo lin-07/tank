@@ -33,7 +33,6 @@ public class Bullet extends BaseBullet {
         rectangle.y = y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
-        System.out.println(gameModel.iterator);
         gameModel.iterator.add(this);
     }
 
@@ -82,20 +81,6 @@ public class Bullet extends BaseBullet {
             case DOWM:
                 g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletD"),x,y,null);
                 break;
-        }
-    }
-
-    @Override
-    public void collision(BaseTank tank) {
-        if(this.group == tank.getGroup()){
-            return;
-        }
-        if(rectangle.intersects(tank.getRectangle())){
-            this.die();
-            tank.die();
-            int bx = tank.getX() + Tank.width/2 - Blast.WIDTH/2;
-            int by = tank.getY() + Tank.height/2 - Blast.HEIGHT/2;
-            this.gameModel.iterator.add(new Blast(bx,by,gameModel));
         }
     }
 }

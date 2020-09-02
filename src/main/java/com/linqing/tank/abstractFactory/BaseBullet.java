@@ -8,7 +8,4 @@ import java.awt.*;
 @Data
 public abstract class BaseBullet extends GameObject {
 
-    public abstract void collision(BaseTank tank);
-
-
 }

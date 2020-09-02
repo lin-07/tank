@@ -2,6 +2,8 @@ package com.linqing.tank.facade;
 
 import com.linqing.tank.*;
 import com.linqing.tank.abstractFactory.*;
+import com.linqing.tank.cor.BulletTankCollider;
+import com.linqing.tank.cor.Collider;
 
 import java.awt.*;
 import java.util.*;
@@ -16,8 +18,9 @@ public class GameModel {
             gameObjects.add(new Tank(i * 80,200,Direction.DOWM,Group.bad,this));
         }
     }
-    public List<GameObject> gameObjects = Collections.synchronizedList(new ArrayList<GameObject>());
+    public List<GameObject> gameObjects = new ArrayList<GameObject>();
     private static GameModel gameModel = new GameModel();
+    private Collider<GameObject> collider = new BulletTankCollider();
 
     public static GameModel getInstance(){
         return gameModel;
@@ -42,23 +45,19 @@ public class GameModel {
             GameObject gameObjects = iterator.next();
             if(!gameObjects.isLive()){
                 iterator.remove();
+            }else{
+                gameObjects.paint(graphics);
             }
-            gameObjects.paint(graphics);
         }
 
         // 碰撞检测
-        // for (int i = 0; i < gameObjects.size(); i++) {
-        //     for (int j = 0; j < gameObjects.size(); j++) {
-        //         GameObject o1 = gameObjects.get(i);
-        //         GameObject o2 = gameObjects.get(j);
-        //         if(o1 instanceof Tank && o2 instanceof Bullet){
-        //             ((Bullet) o2).collision((Tank) o1);
-        //         }
-        //         if(o1 instanceof Bullet && o2 instanceof Tank){
-        //             ((Bullet) o1).collision((Tank) o2);
-        //         }
-        //     }
-        // }
+        for (int i = 0; i < gameObjects.size(); i++) {
+            for (int j = i+1; j < gameObjects.size(); j++) {
+                GameObject o1 = gameObjects.get(i);
+                GameObject o2 = gameObjects.get(j);
+                collider.collideWith(o1,o2);
+            }
+        }
         //
         // Color color = graphics.getColor();
         // graphics.setColor(Color.white);
