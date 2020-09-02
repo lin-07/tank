@@ -119,7 +119,6 @@ public class Tank extends BaseTank {
     /**
      * 坦克发射子弹
      */
-    @Override
     public void fire() {
         this.getTankTankFireStrategy().fire(this);
     }

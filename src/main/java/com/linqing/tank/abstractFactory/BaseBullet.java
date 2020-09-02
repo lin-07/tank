@@ -17,7 +17,4 @@ public abstract class BaseBullet extends GameObject {
         super(x,y,width,height);
 
     }
-
-
-
 }
