@@ -24,11 +24,19 @@ public class Tank extends BaseTank {
     private FireStrategy<Tank> tankTankFireStrategy;
 
 
-    public Tank(int x, int y, Group group) {
-        super(x,y,group,
+    public Tank(int x, int y,Group group) {
+        super(x,y,
                 ResourceManager.getInstance().getBufferedImage("goodTankU").getWidth(),
                 ResourceManager.getInstance().getBufferedImage("goodTankU").getHeight());
         this.group = group;
+
+        if(group == Group.bad){
+            // 随机设置敌方坦克位置
+            setX(random.nextInt(TankFrame.GAME_WIDTH  - this.getWidth() -2) + 2);
+            setY(random.nextInt(TankFrame.GAME_HEIGHT - this.getHeight() -32) + 32);
+        }
+
+        // 敌方坦克初始化方向随机设置
         this.direction = group == Group.good ? Direction.UP : Direction.values()[random.nextInt(4)];
         this.move = group == Group.good ? false : true;
         String fireClassName = null;
@@ -72,10 +80,15 @@ public class Tank extends BaseTank {
                     this.setY(this.getY() + this.getSpeed());
                     break;
             }
+            // 敌方坦克随机发射子弹
             if(this.getRandom().nextInt(100) > 95 && this.getGroup() == Group.bad){
                 this.fire();
             }
-            randomBadTankDirection();
+
+            // 敌方坦克随机变化方向
+            if(this.getGroup() == Group.bad && this.getRandom().nextInt(100) > 92){
+                this.setDirection(Direction.values()[this.getRandom().nextInt(4)]);
+            }
             borderDetection();
             // update rectangle
             updateRectangle();
@@ -94,18 +107,6 @@ public class Tank extends BaseTank {
             case DOWM:
                 g.drawImage(this.getGroup() == Group.good ? ResourceManager.getInstance().getBufferedImage("goodTankD") : ResourceManager.getInstance().getBufferedImage("badTankD"),this.getX(),this.getY(),null);
                 break;
-        }
-    }
-
-
-
-
-    /**
-     * 设置坦克方向
-     */
-    private void randomBadTankDirection() {
-        if(this.getGroup() == Group.bad && this.getRandom().nextInt(100) > 92){
-            this.setDirection(Direction.values()[this.getRandom().nextInt(4)]);
         }
     }
 

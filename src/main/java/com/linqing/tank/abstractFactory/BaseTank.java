@@ -13,8 +13,7 @@ public abstract class BaseTank extends GameObject {
 
     private Rectangle rectangle = new Rectangle();
 
-
-    public BaseTank(int x, int y, Group group,int width,int height) {
+    public BaseTank(int x, int y,int width,int height) {
         super(x,y,width,height);
 
         rectangle.x = x;
@@ -26,7 +25,7 @@ public abstract class BaseTank extends GameObject {
     /**
      * 开火
      */
-    public abstract void fire();
+    protected abstract void fire();
 
     /**
      * 边界检测

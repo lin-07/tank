@@ -43,7 +43,7 @@ public class GameModel {
         // 初始化敌方坦克
         int initTankCount = Integer.parseInt((String) PropertyManager.getInstance().getKey("initTankCount"));
         for (int i = 0; i < initTankCount ; i++) {
-            gameFactory.createTank(i * 80,200,Group.bad);
+            gameFactory.createTank(0,0,Group.bad);
         }
         myTank = (Tank) gameFactory.createTank(200,400, Group.good);
     }
