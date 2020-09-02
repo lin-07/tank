@@ -13,16 +13,20 @@ import java.util.List;
 
 public class GameModel {
 
-    private GameModel(){
-        init();
-    }
-    public List<GameObject> gameObjects = new ArrayList<GameObject>();
     private static GameModel gameModel = new GameModel();
-    private ColliderChain colliderChain = new ColliderChain();
-
     public static GameModel getInstance(){
         return gameModel;
     }
+
+    static {
+        gameModel.init();
+    }
+    private GameModel(){
+    }
+    public List<GameObject> gameObjects = new ArrayList<GameObject>();
+    private ColliderChain colliderChain = new ColliderChain();
+
+
     public GameFactory gameFactory = null;
     public BaseTank myTank = null;
 
@@ -35,10 +39,11 @@ public class GameModel {
             e.printStackTrace();
         }
 
+
         // 初始化敌方坦克
         int initTankCount = Integer.parseInt((String) PropertyManager.getInstance().getKey("initTankCount"));
         for (int i = 0; i < initTankCount ; i++) {
-            gameObjects.add(gameFactory.createTank(i * 80,200,Group.bad));
+            gameFactory.createTank(i * 80,200,Group.bad);
         }
         myTank = gameFactory.createTank(200,400, Group.good);
     }

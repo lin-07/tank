@@ -49,6 +49,10 @@ public abstract class BaseTank extends GameObject {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if(group == Group.bad){
+            // 敌方坦克初始化的时候加入的游戏物品集合，注意什么时候用集合的加入方法，什么时候用迭代器的加入方法，这里是刚开始初始化
+            GameModel.getInstance().gameObjects.add(this);
+        }
     }
 
     /**
