@@ -25,6 +25,7 @@ public class Blast extends BaseBlast {
                 new Audio("audio/explode.wav").play();
             }
         }).start();
+        this.gameModel.iterator.add(this);
     }
 
     @Override

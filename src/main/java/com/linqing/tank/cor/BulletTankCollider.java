@@ -30,7 +30,7 @@ public class BulletTankCollider<GameObject> implements Collider<GameObject> {
             tank.die();
             int bx = tank.getX() + Tank.width/2 - Blast.WIDTH/2;
             int by = tank.getY() + Tank.height/2 - Blast.HEIGHT/2;
-            bullet.getGameModel().iterator.add(new Blast(bx,by,bullet.getGameModel()));
+            bullet.getGameModel().gameFactory.createBlast(bx,by,bullet.getGameModel());
             return false;
         }
         return true;
