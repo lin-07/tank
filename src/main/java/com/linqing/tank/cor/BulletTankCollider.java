@@ -11,13 +11,15 @@ import com.linqing.tank.abstractFactory.BaseTank;
  */
 public class BulletTankCollider<GameObject> implements Collider<GameObject> {
 
-    public void collideWith(GameObject o1, GameObject o2) {
+    public boolean collideWith(GameObject o1, GameObject o2) {
         if(o1 instanceof Bullet && o2 instanceof Tank){
             collision((Bullet) o1,(Tank)o2);
+            return false;
         }else if(o1 instanceof Tank && o2 instanceof Bullet){
             collision((Bullet) o2,(Tank)o1);
+            return false;
         }else{
-            return;
+            return true;
         }
     }
 

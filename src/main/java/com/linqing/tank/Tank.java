@@ -24,6 +24,9 @@ public class Tank extends BaseTank {
     @Override
     public void paint(Graphics g){
         if(this.getMove()){
+            // 每次移动前设置oldX oldY的值
+            this.setOldX(this.getX());
+            this.setOldY(this.getY());
             switch (this.getDirection()) {
                 case UP:
                     this.setY(this.getY() - this.getSpeed());

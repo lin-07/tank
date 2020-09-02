@@ -6,5 +6,11 @@ package com.linqing.tank.cor;
  */
 public interface Collider<T> {
 
-    void collideWith(T o1,T o2);
+    /**
+     * 是否继续
+     * @param o1
+     * @param o2
+     * @return
+     */
+    boolean collideWith(T o1,T o2);
 }

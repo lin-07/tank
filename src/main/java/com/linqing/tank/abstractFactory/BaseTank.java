@@ -13,6 +13,8 @@ public abstract class BaseTank extends GameObject {
 
     private int x;
     private int y;
+    private int oldX;
+    private int oldY;
     private Direction direction;
     private int speed = 5;
     private Boolean move = false;

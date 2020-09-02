@@ -4,6 +4,8 @@ import com.linqing.tank.*;
 import com.linqing.tank.abstractFactory.*;
 import com.linqing.tank.cor.BulletTankCollider;
 import com.linqing.tank.cor.Collider;
+import com.linqing.tank.cor.ColliderChain;
+import com.linqing.tank.cor.TankTankCollider;
 
 import java.awt.*;
 import java.util.*;
@@ -20,7 +22,7 @@ public class GameModel {
     }
     public List<GameObject> gameObjects = new ArrayList<GameObject>();
     private static GameModel gameModel = new GameModel();
-    private Collider<GameObject> collider = new BulletTankCollider();
+    private ColliderChain colliderChain = new ColliderChain();
 
     public static GameModel getInstance(){
         return gameModel;
@@ -55,7 +57,7 @@ public class GameModel {
             for (int j = i+1; j < gameObjects.size(); j++) {
                 GameObject o1 = gameObjects.get(i);
                 GameObject o2 = gameObjects.get(j);
-                collider.collideWith(o1,o2);
+                colliderChain.collideWith(o1,o2);
             }
         }
         //
