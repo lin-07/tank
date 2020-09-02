@@ -5,6 +5,7 @@ import com.linqing.tank.Bullet;
 import com.linqing.tank.GameObject;
 import com.linqing.tank.Tank;
 import com.linqing.tank.abstractFactory.BaseTank;
+import com.linqing.tank.facade.GameModel;
 
 /**
  * @author lin-PC
@@ -30,7 +31,7 @@ public class BulletTankCollider<GameObject> implements Collider<GameObject> {
             tank.die();
             int bx = tank.getX() + Tank.width/2 - Blast.WIDTH/2;
             int by = tank.getY() + Tank.height/2 - Blast.HEIGHT/2;
-            bullet.getGameModel().gameFactory.createBlast(bx,by,bullet.getGameModel());
+            GameModel.getInstance().gameFactory.createBlast(bx,by);
             return false;
         }
         return true;

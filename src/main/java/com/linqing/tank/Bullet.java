@@ -21,19 +21,17 @@ public class Bullet extends BaseBullet {
     public static int WIDTH = ResourceManager.getInstance().getBufferedImage("bulletD").getWidth();
     public static int HEIGHT = ResourceManager.getInstance().getBufferedImage("bulletD").getHeight();
     private Group group;
-    GameModel gameModel = null;
     private Rectangle rectangle = new Rectangle();
-    public Bullet(int x, int y, Direction direction, Group group,GameModel gameModel) {
+    public Bullet(int x, int y, Direction direction, Group group) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
-        this.gameModel = gameModel;
         rectangle.x = x;
         rectangle.y = y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
-        gameModel.iterator.add(this);
+        GameModel.getInstance().iterator.add(this);
     }
 
 

@@ -20,19 +20,17 @@ public abstract class BaseTank extends GameObject {
     private Boolean move = false;
     public static int width;
     public static int height;
-    private GameModel gameModel;
     private Random random = new Random();
     private Group group;
     private Rectangle rectangle = new Rectangle();
     private FireStrategy<Tank> tankTankFireStrategy;
 
 
-    public BaseTank(int x, int y, Direction direction, Group group, GameModel gameModel,int width,int height) {
+    public BaseTank(int x, int y, Direction direction, Group group,int width,int height) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
-        this.gameModel = gameModel;
         if(this.group == Group.bad){
             this.move = true;
         }

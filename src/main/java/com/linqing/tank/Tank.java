@@ -13,8 +13,8 @@ public class Tank extends BaseTank {
     public static int width = ResourceManager.getInstance().getBufferedImage("goodTankU").getWidth();
     public static int height = ResourceManager.getInstance().getBufferedImage("goodTankU").getHeight();
 
-    public Tank(int x, int y, Direction direction, Group group, GameModel gameModel) {
-        super(x,y,direction,group,gameModel,width,height);
+    public Tank(int x, int y, Direction direction, Group group) {
+        super(x,y,direction,group,width,height);
     }
 
     /**

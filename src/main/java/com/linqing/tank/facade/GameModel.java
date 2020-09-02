@@ -17,7 +17,7 @@ public class GameModel {
         int initTankCount = Integer.parseInt((String) PropertyManager.getInstance().getKey("initTankCount"));
 
         for (int i = 0; i < initTankCount ; i++) {
-            gameObjects.add(new Tank(i * 80,200,Direction.DOWM,Group.bad,this));
+            gameObjects.add(new Tank(i * 80,200,Direction.DOWM,Group.bad));
         }
     }
     public List<GameObject> gameObjects = new ArrayList<GameObject>();
@@ -30,7 +30,7 @@ public class GameModel {
 
 
     public GameFactory gameFactory = DefaultFactory.getInstance();
-    public BaseTank myTank = gameFactory.createTank(200,400, Direction.DOWM, Group.good,this);
+    public BaseTank myTank = gameFactory.createTank(200,400, Direction.DOWM, Group.good);
     /**
      * 一个集合遍历过程中不允许直接新增或者移除集合中的元素  需要使用迭代器操作
      */

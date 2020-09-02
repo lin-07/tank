@@ -7,9 +7,9 @@ import com.linqing.tank.facade.GameModel;
 
 public abstract class GameFactory {
 
-    public abstract BaseTank createTank(int x, int y, Direction direction, Group group, GameModel gameModel);
+    public abstract BaseTank createTank(int x, int y, Direction direction, Group group);
 
-    public abstract BaseBullet createBullet(int x,int y,Direction direction,Group group,GameModel gameModel);
+    public abstract BaseBullet createBullet(int x,int y,Direction direction,Group group);
 
-    public abstract BaseBlast createBlast(int x,int y,GameModel gameModel);
+    public abstract BaseBlast createBlast(int x,int y);
 }

@@ -18,17 +18,17 @@ public class DefaultFactory extends GameFactory {
 
 
     @Override
-    public BaseTank createTank(int x, int y, Direction direction, Group group, GameModel gameModel) {
-        return new Tank(x,y,direction,group,gameModel);
+    public BaseTank createTank(int x, int y, Direction direction, Group group) {
+        return new Tank(x,y,direction,group);
     }
 
     @Override
-    public BaseBullet createBullet(int x, int y, Direction direction, Group group, GameModel gameModel) {
-        return new Bullet(x,y,direction,group,gameModel);
+    public BaseBullet createBullet(int x, int y, Direction direction, Group group) {
+        return new Bullet(x,y,direction,group);
     }
 
     @Override
-    public BaseBlast createBlast(int x, int y, GameModel gameModel) {
-        return new Blast(x,y,gameModel);
+    public BaseBlast createBlast(int x, int y) {
+        return new Blast(x,y);
     }
 }
