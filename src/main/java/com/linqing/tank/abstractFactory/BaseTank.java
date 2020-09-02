@@ -2,57 +2,25 @@ package com.linqing.tank.abstractFactory;
 
 import com.linqing.tank.*;
 import com.linqing.tank.facade.GameModel;
-import com.linqing.tank.strategy.FireStrategy;
 import lombok.Data;
 
 import java.awt.*;
-import java.util.Random;
 
 @Data
 public abstract class BaseTank extends GameObject {
 
-    private int x;
-    private int y;
-    private int oldX;
-    private int oldY;
-    private Direction direction;
-    private int speed = 5;
-    private Boolean move = false;
-    public static int width;
-    public static int height;
-    private Random random = new Random();
-    private Group group;
+
+
     private Rectangle rectangle = new Rectangle();
-    private FireStrategy<Tank> tankTankFireStrategy;
 
 
     public BaseTank(int x, int y, Group group,int width,int height) {
-        this.x = x;
-        this.y = y;
-        this.group = group;
-        this.direction = group == Group.good ? Direction.UP : Direction.values()[random.nextInt(4)];
-        if(this.group == Group.bad){
-            this.move = true;
-        }
+        super(x,y,width,height);
+
         rectangle.x = x;
         rectangle.y = y;
         rectangle.width = width;
         rectangle.height = height;
-        String fireClassName = null;
-        if(this.group == Group.good){
-            fireClassName = (String) PropertyManager.getInstance().getKey("goodFS");
-        }else{
-            fireClassName = (String) PropertyManager.getInstance().getKey("badFS");
-        }
-        try {
-            this.tankTankFireStrategy = (FireStrategy<Tank>)Class.forName(fireClassName).newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if(group == Group.bad){
-            // 敌方坦克初始化的时候加入的游戏物品集合，注意什么时候用集合的加入方法，什么时候用迭代器的加入方法，这里是刚开始初始化
-            GameModel.getInstance().gameObjects.add(this);
-        }
     }
 
     /**
@@ -70,11 +38,11 @@ public abstract class BaseTank extends GameObject {
         if(this.getY() <32){
             this.setY(32);
         }
-        if(this.getX() > TankFrame.GAME_WIDTH  - Tank.width){
-            this.setX(TankFrame.GAME_WIDTH - Tank.width);
+        if(this.getX() > TankFrame.GAME_WIDTH  - this.getWidth()){
+            this.setX(TankFrame.GAME_WIDTH - this.getWidth());
         }
-        if(this.getY() > TankFrame.GAME_HEIGHT - Tank.height){
-            this.setY(TankFrame.GAME_HEIGHT - Tank.height);
+        if(this.getY() > TankFrame.GAME_HEIGHT - this.getHeight()){
+            this.setY(TankFrame.GAME_HEIGHT - this.getHeight());
         }
     }
 
@@ -82,17 +50,9 @@ public abstract class BaseTank extends GameObject {
      * 更新rectangle
      */
     protected void updateRectangle(){
-        this.rectangle.x = x;
-        this.rectangle.y = y;
+        this.rectangle.x = super.getX();
+        this.rectangle.y = super.getY();
     }
 
-    /**
-     * 设置坦克方向
-     */
-    protected void randomBadTankDirection() {
-        if(this.getGroup() == Group.bad && this.getRandom().nextInt(100) > 92){
-            this.setDirection(Direction.values()[this.getRandom().nextInt(4)]);
-        }
-    }
 
 }

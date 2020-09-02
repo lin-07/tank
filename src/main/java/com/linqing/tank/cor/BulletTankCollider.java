@@ -1,9 +1,6 @@
 package com.linqing.tank.cor;
 
-import com.linqing.tank.Blast;
-import com.linqing.tank.Bullet;
-import com.linqing.tank.GameObject;
-import com.linqing.tank.Tank;
+import com.linqing.tank.*;
 import com.linqing.tank.abstractFactory.BaseTank;
 import com.linqing.tank.facade.GameModel;
 
@@ -22,15 +19,15 @@ public class BulletTankCollider<GameObject> implements Collider<GameObject> {
         }
     }
 
-    private boolean collision(Bullet bullet, BaseTank tank) {
+    private boolean collision(Bullet bullet, Tank tank) {
         if(bullet.getGroup() == tank.getGroup()){
             return true;
         }
         if(bullet.getRectangle().intersects(tank.getRectangle())){
             bullet.die();
             tank.die();
-            int bx = tank.getX() + Tank.width/2 - Blast.WIDTH/2;
-            int by = tank.getY() + Tank.height/2 - Blast.HEIGHT/2;
+            int bx = tank.getX() + tank.getWidth()/2 - ResourceManager.getInstance().getBufferedImageArray()[0].getWidth()/2;
+            int by = tank.getY() + tank.getHeight()/2 - ResourceManager.getInstance().getBufferedImageArray()[0].getHeight()/2;
             GameModel.getInstance().gameFactory.createBlast(bx,by);
             return false;
         }

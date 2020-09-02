@@ -1,17 +1,16 @@
 package com.linqing.tank.strategy;
 
 import com.linqing.tank.*;
-import com.linqing.tank.abstractFactory.BaseTank;
 import com.linqing.tank.facade.GameModel;
 
 /**
  * @author lin-PC
  */
-public class MoreDirectionFireStrategy implements FireStrategy<BaseTank> {
+public class MoreDirectionFireStrategy implements FireStrategy<Tank> {
 
-    public void fire(BaseTank tank) {
-        int bx = tank.getX() + Tank.width/2 - Bullet.WIDTH/2;
-        int by = tank.getY() + Tank.width/2 - Bullet.HEIGHT/2;
+    public void fire(Tank tank) {
+        int bx = tank.getX() + tank.getWidth()/2 - ResourceManager.getInstance().getBufferedImage("bulletD").getWidth()/2;
+        int by = tank.getY() + tank.getHeight()/2 - ResourceManager.getInstance().getBufferedImage("bulletD").getHeight()/2;
         for(Direction direction : Direction.values()){
             GameModel.getInstance().gameFactory.createBullet(bx,by,direction,tank.getGroup());
         }

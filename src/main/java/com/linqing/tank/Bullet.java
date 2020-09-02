@@ -14,23 +14,16 @@ import java.awt.*;
 @Data
 public class Bullet extends BaseBullet {
 
-    private int x;
-    private int y;
     private Direction direction;
     private int speed = 10;
-    public static int WIDTH = ResourceManager.getInstance().getBufferedImage("bulletD").getWidth();
-    public static int HEIGHT = ResourceManager.getInstance().getBufferedImage("bulletD").getHeight();
     private Group group;
-    private Rectangle rectangle = new Rectangle();
+
     public Bullet(int x, int y, Direction direction, Group group) {
-        this.x = x;
-        this.y = y;
+        super(x,y,
+                ResourceManager.getInstance().getBufferedImage("bulletD").getWidth(),
+                ResourceManager.getInstance().getBufferedImage("bulletD").getHeight());
         this.direction = direction;
         this.group = group;
-        rectangle.x = x;
-        rectangle.y = y;
-        rectangle.width = WIDTH;
-        rectangle.height = HEIGHT;
         GameModel.getInstance().iterator.add(this);
     }
 
@@ -43,41 +36,40 @@ public class Bullet extends BaseBullet {
     public void paint(Graphics g){
         switch (direction) {
             case UP:
-                y -= speed;
+                this.setY(this.getY() - speed);
                 break;
             case LEFT:
-                x -= speed;
+                this.setX(this.getX() - speed);
                 break;
             case RIGHT:
-                x += speed;
+                this.setX(this.getX() + speed);
                 break;
             case DOWM:
-                y += speed;
+                this.setY(this.getY() + speed);
                 break;
             default:
                 break;
         }
 
         // update rectangle
-        rectangle.x = x;
-        rectangle.y = y;
+        updateRectangle();
 
         // 每次画的时候判断子弹是否存活
-        if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT){
-            this.setLive(false);
+        if(this.getX() < 0 || this.getY() < 0 || this.getX() > TankFrame.GAME_WIDTH || this.getY() > TankFrame.GAME_HEIGHT){
+            this.die();
         }
         switch (direction) {
             case UP:
-                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletU"),x,y,null);
+                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletU"),this.getX(),this.getY(),null);
                 break;
             case LEFT:
-                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletL"),x,y,null);
+                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletL"),this.getX(),this.getY(),null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletR"),x,y,null);
+                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletR"),this.getX(),this.getY(),null);
                 break;
             case DOWM:
-                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletD"),x,y,null);
+                g.drawImage(ResourceManager.getInstance().getBufferedImage("bulletD"),this.getX(),this.getY(),null);
                 break;
         }
     }

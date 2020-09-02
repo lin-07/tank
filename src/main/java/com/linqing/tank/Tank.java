@@ -2,19 +2,50 @@ package com.linqing.tank;
 
 import com.linqing.tank.abstractFactory.BaseTank;
 import com.linqing.tank.facade.GameModel;
+import com.linqing.tank.strategy.FireStrategy;
+import lombok.Data;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @author lin-PC
  */
+@Data
 public class Tank extends BaseTank {
 
-    public static int width = ResourceManager.getInstance().getBufferedImage("goodTankU").getWidth();
-    public static int height = ResourceManager.getInstance().getBufferedImage("goodTankU").getHeight();
+    private int oldX;
+    private int oldY;
+    private Direction direction;
+    private int speed = 5;
+    private Boolean move = false;
+    private Group group;
+    private Random random = new Random();
+    private FireStrategy<Tank> tankTankFireStrategy;
+
 
     public Tank(int x, int y, Group group) {
-        super(x,y,group,width,height);
+        super(x,y,group,
+                ResourceManager.getInstance().getBufferedImage("goodTankU").getWidth(),
+                ResourceManager.getInstance().getBufferedImage("goodTankU").getHeight());
+        this.group = group;
+        this.direction = group == Group.good ? Direction.UP : Direction.values()[random.nextInt(4)];
+        this.move = group == Group.good ? false : true;
+        String fireClassName = null;
+        if(this.group == Group.good){
+            fireClassName = (String) PropertyManager.getInstance().getKey("goodFS");
+        }else{
+            fireClassName = (String) PropertyManager.getInstance().getKey("badFS");
+        }
+        try {
+            this.tankTankFireStrategy = (FireStrategy<Tank>)Class.forName(fireClassName).newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(group == Group.bad){
+            // 敌方坦克初始化的时候加入的游戏物品集合，注意什么时候用集合的加入方法，什么时候用迭代器的加入方法，这里是刚开始初始化
+            GameModel.getInstance().gameObjects.add(this);
+        }
     }
 
     /**
@@ -69,6 +100,14 @@ public class Tank extends BaseTank {
 
 
 
+    /**
+     * 设置坦克方向
+     */
+    private void randomBadTankDirection() {
+        if(this.getGroup() == Group.bad && this.getRandom().nextInt(100) > 92){
+            this.setDirection(Direction.values()[this.getRandom().nextInt(4)]);
+        }
+    }
 
     /**
      * 坦克发射子弹

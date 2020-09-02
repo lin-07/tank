@@ -9,15 +9,12 @@ import java.awt.*;
 @Data
 public class Blast extends BaseBlast {
 
-    private int x;
-    private int y;
-    public static int WIDTH = ResourceManager.getInstance().getBufferedImageArray()[0].getWidth();
-    public static int HEIGHT = ResourceManager.getInstance().getBufferedImageArray()[0].getHeight();
     private int step = 0;
 
     public Blast(int x,int y){
-        this.x = x;
-        this.y = y;
+        super(x,y,
+                ResourceManager.getInstance().getBufferedImageArray()[0].getWidth(),
+                ResourceManager.getInstance().getBufferedImageArray()[0].getHeight());
         new Thread(new Runnable() {
             public void run() {
                 new Audio("audio/explode.wav").play();
@@ -28,7 +25,7 @@ public class Blast extends BaseBlast {
 
     @Override
     public void paint(Graphics g){
-        g.drawImage(ResourceManager.getInstance().getBufferedImageArray()[step++],x,y,null);
+        g.drawImage(ResourceManager.getInstance().getBufferedImageArray()[step++],this.getX(),this.getY(),null);
         if(step >= ResourceManager.getInstance().getBufferedImageArray().length){
             this.setLive(false);
         }

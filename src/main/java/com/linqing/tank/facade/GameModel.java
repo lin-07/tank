@@ -28,7 +28,7 @@ public class GameModel {
 
 
     public GameFactory gameFactory = null;
-    public BaseTank myTank = null;
+    public Tank myTank = null;
 
     private void init(){
         // 初始化游戏物品工厂
@@ -45,7 +45,7 @@ public class GameModel {
         for (int i = 0; i < initTankCount ; i++) {
             gameFactory.createTank(i * 80,200,Group.bad);
         }
-        myTank = gameFactory.createTank(200,400, Group.good);
+        myTank = (Tank) gameFactory.createTank(200,400, Group.good);
     }
     /**
      * 一个集合遍历过程中不允许直接新增或者移除集合中的元素  需要使用迭代器操作
