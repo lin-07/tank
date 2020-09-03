@@ -8,7 +8,7 @@ import com.linqing.tank.Tank;
 public class TankFireHandler implements TankFireObserver<Tank> {
 
 
-    public void fire(TankFireEvent<Tank> tankFireEvent) {
+    public void handler(TankFireEvent<Tank> tankFireEvent) {
         Tank tank = tankFireEvent.getSource();
         tank.fire();
     }

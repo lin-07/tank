@@ -14,12 +14,5 @@ public class MoreDirectionFireStrategy implements FireStrategy<Tank> {
         for(Direction direction : Direction.values()){
             GameModel.getInstance().gameFactory.createBullet(bx,by,direction,tank.getGroup());
         }
-        if(tank.getGroup() == Group.good){
-            new Thread(new Runnable() {
-                public void run() {
-                    new Audio("audio/tank_fire.wav").play();
-                }
-            }).start();
-        }
     }
 }

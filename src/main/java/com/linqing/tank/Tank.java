@@ -5,6 +5,7 @@ import com.linqing.tank.facade.GameModel;
 import com.linqing.tank.observe.TankFireEvent;
 import com.linqing.tank.observe.TankFireHandler;
 import com.linqing.tank.observe.TankFireObserver;
+import com.linqing.tank.observe.TankFireVoiceHandler;
 import com.linqing.tank.strategy.FireStrategy;
 import lombok.Data;
 
@@ -69,12 +70,13 @@ public class Tank extends BaseTank {
         }
 
         observers.add(new TankFireHandler());
+        observers.add(new TankFireVoiceHandler());
     }
 
     public void fireKey(){
         TankFireEvent<Tank> tankFireEvent = new TankFireEvent<Tank>(this);
         for(TankFireObserver observer : observers){
-            observer.fire(tankFireEvent);
+            observer.handler(tankFireEvent);
         }
     }
 

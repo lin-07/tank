@@ -7,5 +7,13 @@ import com.linqing.tank.Tank;
  */
 public interface TankFireObserver<T> {
 
-    void fire(TankFireEvent<T> tankFireEvent);
+    /**
+     * 按下ctrl键时，主站坦克 开火，开火身体
+     * 开火又设计为策略 区分
+     *
+     */
+
+
+
+    void handler(TankFireEvent<T> tankFireEvent);
 }
