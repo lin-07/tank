@@ -26,7 +26,7 @@ public class Tank extends BaseTank {
     private Random random = new Random();
     private Rectangle rectangle = new Rectangle();
     private FireStrategy<Tank> tankTankFireStrategy;
-    private TankFireObserverChain tankFireObserverChain = new TankFireObserverChain();
+    private TankFireObserverChain tankFireObserverChain = TankFireObserverChain.getInstance();
 
 
     public Tank(int x, int y,Group group) {

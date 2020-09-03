@@ -11,10 +11,19 @@ import java.util.List;
  */
 public class TankFireObserverChain implements TankFireObserver<Tank> {
 
+    private static TankFireObserverChain instance = new TankFireObserverChain();
+
     List<TankFireObserver> observers = new LinkedList<TankFireObserver>();
 
-    public TankFireObserverChain(){
-        init();
+    private TankFireObserverChain(){
+    }
+
+    static {
+        instance.init();
+    }
+
+    public static TankFireObserverChain getInstance(){
+        return instance;
     }
 
     private void init(){

@@ -12,10 +12,19 @@ import java.util.List;
  */
 public class ColliderChain implements Collider<GameObject> {
 
+    private static ColliderChain instance = new ColliderChain();
+
+    static {
+        instance.init();
+    }
+
     private List<Collider<GameObject>> colliders = new LinkedList<Collider<GameObject>>();
 
-    public ColliderChain(){
-        init();
+    private ColliderChain(){
+    }
+
+    public static ColliderChain getInstance(){
+        return instance;
     }
 
     private void init(){

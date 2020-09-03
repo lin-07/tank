@@ -32,7 +32,7 @@ public class GameModel {
     }
 
     public List<GameObject> gameObjects = new ArrayList<GameObject>();
-    private ColliderChain colliderChain = new ColliderChain();
+    private ColliderChain colliderChain = ColliderChain.getInstance();
     public GameFactory gameFactory = null;
     public Tank myTank = null;
     /**
