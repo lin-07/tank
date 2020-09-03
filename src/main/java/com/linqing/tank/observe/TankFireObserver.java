@@ -15,5 +15,5 @@ public interface TankFireObserver<T> {
 
 
 
-    void handler(TankFireEvent<T> tankFireEvent);
+    boolean handler(TankFireEvent<T> tankFireEvent);
 }

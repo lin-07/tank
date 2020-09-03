@@ -2,16 +2,12 @@ package com.linqing.tank;
 
 import com.linqing.tank.abstractFactory.BaseTank;
 import com.linqing.tank.facade.GameModel;
-import com.linqing.tank.observe.TankFireEvent;
-import com.linqing.tank.observe.TankFireHandler;
-import com.linqing.tank.observe.TankFireObserver;
-import com.linqing.tank.observe.TankFireVoiceHandler;
+import com.linqing.tank.observe.*;
 import com.linqing.tank.strategy.FireStrategy;
 import lombok.Data;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -30,7 +26,7 @@ public class Tank extends BaseTank {
     private Random random = new Random();
     private Rectangle rectangle = new Rectangle();
     private FireStrategy<Tank> tankTankFireStrategy;
-    private List<TankFireObserver> observers = new ArrayList<TankFireObserver>();
+    private TankFireObserverChain tankFireObserverChain = new TankFireObserverChain();
 
 
     public Tank(int x, int y,Group group) {
@@ -69,15 +65,11 @@ public class Tank extends BaseTank {
             GameModel.getInstance().gameObjects.add(this);
         }
 
-        observers.add(new TankFireHandler());
-        observers.add(new TankFireVoiceHandler());
     }
 
     public void fireKey(){
         TankFireEvent<Tank> tankFireEvent = new TankFireEvent<Tank>(this);
-        for(TankFireObserver observer : observers){
-            observer.handler(tankFireEvent);
-        }
+        tankFireObserverChain.handler(tankFireEvent);
     }
 
     /**

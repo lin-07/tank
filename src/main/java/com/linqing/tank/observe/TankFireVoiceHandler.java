@@ -9,14 +9,12 @@ import com.linqing.tank.Tank;
  */
 public class TankFireVoiceHandler implements TankFireObserver<Tank> {
 
-    public void handler(TankFireEvent<Tank> tankFireEvent) {
-        Tank tank = tankFireEvent.getSource();
-        if(tank.getGroup() == Group.good){
-            new Thread(new Runnable() {
-                public void run() {
-                    new Audio("audio/tank_fire.wav").play();
-                }
-            }).start();
-        }
+    public boolean handler(TankFireEvent<Tank> tankFireEvent) {
+        new Thread(new Runnable() {
+            public void run() {
+                new Audio("audio/tank_fire.wav").play();
+            }
+        }).start();
+        return true;
     }
 }
