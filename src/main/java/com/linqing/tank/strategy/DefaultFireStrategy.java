@@ -3,6 +3,7 @@ package com.linqing.tank.strategy;
 import com.linqing.tank.*;
 import com.linqing.tank.abstractFactory.BaseBullet;
 import com.linqing.tank.abstractFactory.BaseTank;
+import com.linqing.tank.decorator.DecoratorChain;
 import com.linqing.tank.decorator.RectDecorator;
 import com.linqing.tank.decorator.TailDecorator;
 import com.linqing.tank.facade.GameModel;
@@ -22,6 +23,7 @@ public class DefaultFireStrategy implements FireStrategy<Tank> {
         int by = tank.getY() + tank.getHeight()/2 - ResourceManager.getInstance().getBufferedImage("bulletD").getHeight()/2;
         // GameModel.getInstance().gameFactory.createBullet(bx,by,tank.getDirection(),tank.getGroup());
         BaseBullet bullet = GameModel.getInstance().gameFactory.createBullet(bx, by, tank.getDirection(), tank.getGroup());
+        GameModel.getInstance().iterator.add(new DecoratorChain(bullet));
         // GameModel.getInstance().iterator.add(new TailDecorator(new RectDecorator(bullet)));
 
     }

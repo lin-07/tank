@@ -15,7 +15,6 @@ public class RectDecorator extends GoDecorator {
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g);
         Color color = g.getColor();
         g.setColor(Color.yellow);
         g.drawRect(gameObject.getX(),gameObject.getY(),gameObject.getWidth(),gameObject.getHeight());

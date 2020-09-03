@@ -15,7 +15,7 @@ public class TailDecorator extends GoDecorator {
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g);
+        // super.paint(g);
         Color color = g.getColor();
         g.setColor(Color.BLUE);
         g.drawLine(gameObject.getX(),gameObject.getY(),gameObject.getX() + gameObject.getWidth(),gameObject.getY() + gameObject.getHeight());
