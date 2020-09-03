@@ -22,7 +22,7 @@ public class DefaultFireStrategy implements FireStrategy<Tank> {
         int by = tank.getY() + tank.getHeight()/2 - ResourceManager.getInstance().getBufferedImage("bulletD").getHeight()/2;
         // GameModel.getInstance().gameFactory.createBullet(bx,by,tank.getDirection(),tank.getGroup());
         BaseBullet bullet = GameModel.getInstance().gameFactory.createBullet(bx, by, tank.getDirection(), tank.getGroup());
-        GameModel.getInstance().iterator.add(new TailDecorator(new RectDecorator(bullet)));
+        // GameModel.getInstance().iterator.add(new TailDecorator(new RectDecorator(bullet)));
         if(tank.getGroup() == Group.good){
             new Thread(new Runnable() {
                 public void run() {

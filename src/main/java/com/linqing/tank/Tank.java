@@ -2,10 +2,16 @@ package com.linqing.tank;
 
 import com.linqing.tank.abstractFactory.BaseTank;
 import com.linqing.tank.facade.GameModel;
+import com.linqing.tank.observe.TankFireEvent;
+import com.linqing.tank.observe.TankFireHandler;
+import com.linqing.tank.observe.TankFireObserver;
 import com.linqing.tank.strategy.FireStrategy;
 import lombok.Data;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -23,6 +29,7 @@ public class Tank extends BaseTank {
     private Random random = new Random();
     private Rectangle rectangle = new Rectangle();
     private FireStrategy<Tank> tankTankFireStrategy;
+    private List<TankFireObserver> observers = new ArrayList<TankFireObserver>();
 
 
     public Tank(int x, int y,Group group) {
@@ -59,6 +66,15 @@ public class Tank extends BaseTank {
         if(group == Group.bad){
             // 敌方坦克初始化的时候加入的游戏物品集合，注意什么时候用集合的加入方法，什么时候用迭代器的加入方法，这里是刚开始初始化
             GameModel.getInstance().gameObjects.add(this);
+        }
+
+        observers.add(new TankFireHandler());
+    }
+
+    public void fireKey(){
+        TankFireEvent<Tank> tankFireEvent = new TankFireEvent<Tank>(this);
+        for(TankFireObserver observer : observers){
+            observer.fire(tankFireEvent);
         }
     }
 
