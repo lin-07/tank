@@ -2,8 +2,6 @@ package com.linqing.tank.abstractFactory;
 
 import com.linqing.tank.Direction;
 import com.linqing.tank.Group;
-import com.linqing.tank.TankFrame;
-import com.linqing.tank.facade.GameModel;
 
 public abstract class GameFactory {
 

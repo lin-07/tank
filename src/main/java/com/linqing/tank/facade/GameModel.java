@@ -5,30 +5,40 @@ import com.linqing.tank.abstractFactory.*;
 import com.linqing.tank.cor.BulletTankCollider;
 import com.linqing.tank.cor.Collider;
 import com.linqing.tank.cor.ColliderChain;
-import com.linqing.tank.cor.TankTankCollider;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+/**
+ * @author lin-PC
+ */
 public class GameModel {
 
+    /**
+     * 类加载的时候初始化了对象，所以静态代码块里面可以调用为非静态的属性初始化数据
+     */
     private static GameModel gameModel = new GameModel();
-    public static GameModel getInstance(){
-        return gameModel;
-    }
 
     static {
         gameModel.init();
     }
+
     private GameModel(){
     }
+
+    public static GameModel getInstance(){
+        return gameModel;
+    }
+
     public List<GameObject> gameObjects = new ArrayList<GameObject>();
     private ColliderChain colliderChain = new ColliderChain();
-
-
     public GameFactory gameFactory = null;
     public Tank myTank = null;
+    /**
+     * 一个集合遍历过程中不允许直接新增或者移除集合中的元素  需要使用迭代器操作
+     */
+    public ListIterator<GameObject> iterator = null;
 
     private void init(){
         // 初始化游戏物品工厂
@@ -45,12 +55,9 @@ public class GameModel {
         for (int i = 0; i < initTankCount ; i++) {
             gameFactory.createTank(0,0,Group.bad);
         }
+        // 初始化主站坦克
         myTank = (Tank) gameFactory.createTank(200,400, Group.good);
     }
-    /**
-     * 一个集合遍历过程中不允许直接新增或者移除集合中的元素  需要使用迭代器操作
-     */
-    public ListIterator<GameObject> iterator = null;
 
 
     public void paint(Graphics graphics) {
