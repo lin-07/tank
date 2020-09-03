@@ -27,8 +27,9 @@ public class Bullet extends BaseBullet {
         rectangle.height = ResourceManager.getInstance().getBufferedImage("bulletD").getHeight();
         this.direction = direction;
         this.group = group;
-        GameModel.getInstance().iterator.add(this);
+        // GameModel.getInstance().iterator.add(this);
     }
+
 
 
     /**

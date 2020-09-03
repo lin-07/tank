@@ -63,6 +63,7 @@ public class GameModel {
     public void paint(Graphics graphics) {
         // 画出坦克
         myTank.paint(graphics);
+        System.out.println(gameObjects.size());
 
         // 画出敌方坦克
         iterator = gameObjects.listIterator();
